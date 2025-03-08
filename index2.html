@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chúc Mừng 8/3 - Thiết Kế Hiện Đại & Mobile Responsive</title>
+  <!-- Sử dụng Google Fonts cho kiểu chữ hiện đại -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    header {
+      margin-bottom: 20px;
+      text-align: center;
+      z-index: 2;
+    }
+    header h1 {
+      font-size: 3em;
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      margin: 0;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      z-index: 2;
+      text-align: center;
+    }
+    .card h2 {
+      margin-top: 0;
+      color: #333;
+      font-weight: 600;
+    }
+    .card p {
+      color: #444;
+      line-height: 1.6;
+    }
+    button {
+      background: #ff6b81;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      margin-top: 20px;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+    #message {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+    /* Hiệu ứng rơi của trái tim và hoa */
+    .falling-object {
+      position: absolute;
+      top: -50px;
+      opacity: 0.9;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      opacity: 0.9;
+      transform: rotate(45deg);
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    /* Media Queries cho thiết bị mobile */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.5em;
+      }
+      .card {
+        padding: 20px;
+      }
+      .card h2 {
+        font-size: 1.5em;
+      }
+      .card p, #message {
+        font-size: 1em;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Chúc Mừng 8/3!</h1>
+  </header>
+  <div class="card">
+    <h2>Gửi tới các chị em</h2>
+    <p>Nhân ngày Quốc tế Phụ nữ 8/3, hãy tận hưởng ngày của bạn với niềm vui và hạnh phúc. Các bạn thật tuyệt vời!</p>
+    <button onclick="activateCelebration()">Nhấn để nhận lời chúc</button>
+    <p id="message">Chúc mừng ngày 8/3! Chúc bạn một ngày thật tuyệt vời!</p>
+  </div>
+
+  <script>
+    // Hiển thị lời chúc và kích hoạt hiệu ứng confetti khi bấm nút
+    function activateCelebration() {
+      document.getElementById('message').style.display = 'block';
+      triggerConfetti();
+    }
+
+    // Tạo hiệu ứng rơi cho trái tim và hoa
+    function createFallingObject() {
+      const fallingObject = document.createElement('div');
+      fallingObject.classList.add('falling-object');
+      const type = Math.random() < 0.5 ? 'heart' : 'flower';
+      fallingObject.innerHTML = type === 'heart' ? '❤' : '🌸';
+      fallingObject.style.left = Math.random() * 100 + 'vw';
+      fallingObject.style.fontSize = (Math.random() * 20 + 20) + 'px';
+      const duration = Math.random() * 5 + 5;
+      fallingObject.style.animationDuration = duration + 's';
+      document.body.appendChild(fallingObject);
+      setTimeout(() => {
+        fallingObject.remove();
+      }, duration * 1000);
+    }
+    setInterval(createFallingObject, 500);
+
+    // Tạo hiệu ứng confetti khi nhận lời chúc
+    function triggerConfetti() {
+      const confettiCount = 30;
+      for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.backgroundColor = getRandomColor();
+        confetti.style.left = Math.random() * 100 + 'vw';
+        const duration = Math.random() * 2 + 3;
+        confetti.style.animationDuration = duration + 's';
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => {
+          confetti.remove();
+        }, duration * 1000);
+      }
+    }
+
+    // Hàm chọn màu ngẫu nhiên cho confetti
+    function getRandomColor() {
+      const colors = ['#FF5252', '#FF4081', '#E040FB', '#7C4DFF', '#536DFE', '#448AFF', '#40C4FF', '#18FFFF', '#64FFDA', '#69F0AE', '#B2FF59', '#EEFF41', '#FFFF00', '#FFD740', '#FFAB40'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+</body>
+</html>
